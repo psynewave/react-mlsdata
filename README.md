@@ -34,7 +34,7 @@ If you are accessing an item in the media resource there is some options you can
             <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
           }
 
-          { data.value &&
+          { data.value.length !== 0 &&
             <img src={data.value[0].MediaURL} alt="Thumbnail"/>
           }
         </div>

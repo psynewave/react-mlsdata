@@ -13,28 +13,28 @@ class Values extends Component {
 class Thumbnail extends Component {
   render() {
     return (
-      <MLSMedia MediaType="Thumbnail" ListingKeyNumeric={265403} limit="1" token={authtoken}>
-        {({ loading, error, data }) => (
-          <div>
-            {error && 
-              <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
-            }
-            {data &&
-              <div>
-                <Values data={data} />
+    <MLSMedia MediaType="Thumbnail" ListingKeyNumeric={265403} limit="1" token={authtoken}>
+      {({ loading, error, data }) => (
+        <div>
+          {error && 
+            <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+          }
+          {data &&
+            <div>
+              <Values data={data} />
 
-                { !data.value.length &&
-                  <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
-                }
+              { !data.value.length &&
+                <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+              }
 
-                { data.value &&
-                  <img src={data.value[0].MediaURL} alt="Thumbnail"/>
-                }
-              </div>
-            }
-          </div>
-        )}
-      </MLSMedia>
+              { data.value.length !== 0 &&
+                <img src={data.value[0].MediaURL} alt="Thumbnail"/>
+              }
+            </div>
+          }
+        </div>
+      )}
+    </MLSMedia>
     )
 
   }
