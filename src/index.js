@@ -23,7 +23,7 @@ class MLSMedia extends Component {
 
 class MLSData extends Component {
   render() {
-    const { collection, token, link, resource = 'vow', limit, ...rest } = this.props;
+    const { collection, token, link, resource = 'www', limit, ...rest } = this.props;
     const authHeader = { headers: { Authorization: `Bearer ${token}`}};
 
     if (link) {
