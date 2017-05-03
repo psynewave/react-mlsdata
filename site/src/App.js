@@ -1,5 +1,6 @@
 import React from "react";
 import MLSData from "../../src";
+import { authtoken } from "./_config.js";
 
 class Values extends React.Component {
   render() {
@@ -35,11 +36,9 @@ class Count extends React.Component {
   }
 }
 
-const tempToken = "c01be39825ad271171f5f979a77fcfdb";
-
 const App = () => (
   <div>
-    <MLSData collection="Property" token={tempToken}>
+    <MLSData collection="Property" token={authtoken}>
       {({ loading, error, data }) => (
         <div>
 

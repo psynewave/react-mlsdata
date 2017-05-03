@@ -8,7 +8,8 @@ npm install --save react-mlsdata
 ```
 
 ## Options
-* collection - the collection you are trying to access examples property, agent, media etc..
+* collection - the collection you want to access example www, vow, public etc...
+* resource - the resource you are trying to access examples property, agent, media etc..
 * token - the authorization token from the mlslistings identity provider
 * link - an odata link returned within the collection request
 
