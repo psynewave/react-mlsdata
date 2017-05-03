@@ -9,6 +9,6 @@ test('Starter has text', () => {
     <Starter />
   );
 
-  expect(starter.text()).toEqual('React Component Boilerplate');
+  expect(starter.text()).toEqual('MLSData');
   
 });

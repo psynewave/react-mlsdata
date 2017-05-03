@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MLSData, { MLSMedia } from "../../src";
+import MLSData, { MLSMedia, MLSCount } from "../../src";
 import { authtoken } from "./_config.js";
 
 class Values extends Component {
@@ -37,6 +37,13 @@ class Thumbnail extends Component {
     </MLSMedia>
     )
 
+  }
+}
+
+class Pagination extends Component {
+  render() {
+    console.log(this.props.data["@odata.count"]);
+    return <div />;
   }
 }
 
@@ -81,6 +88,17 @@ const App = () => (
 
               <Values data={data} />
               <Count data={data.value}/>
+              
+                <MLSCount collection="Property" token={authtoken}>
+                  {({ data }) => (
+                    <div>
+                      { data &&
+                      <Pagination data={data} />
+                    }
+                    </div>
+                  )}
+                </MLSCount>
+
               <Thumbnail />
               <Listings listings={data.value} />
 

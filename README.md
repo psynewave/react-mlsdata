@@ -44,6 +44,33 @@ If you are accessing an item in the media resource there is some options you can
 </MLSMedia>
 ```
 
+## MLSCount
+A simplified interface for retrieving the count for any query. Simply pass the same query and filters to MLSCount component. 
+It will in a declarative form return a count for the query which can the be used to display number of results or to build 
+a pagination element 
+
+# MLSCount Example
+
+```js
+
+class Pagination extends Component {
+  render() {
+    console.log(this.props.data["@odata.count"]);
+    return <div />;
+  }
+}
+
+<MLSCount collection="Property" token={authtoken}>
+  {({ data }) => (
+    <div>
+      { data &&
+      <Pagination data={data} />
+    }
+    </div>
+  )}
+</MLSCount>
+```
+
 ## Usage
 ### Import
 ```js

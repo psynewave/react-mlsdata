@@ -3,10 +3,21 @@ import OData from 'react-odata';
 
 const base = 'http://api1.mlslistings.com/resodata';
 
+class MLSCount extends Component {
+  render () {
+    const { query, ...rest } = this.props;
+    const countQuery = {
+      top: 0,
+      count: true,
+      ...query
+    }
+    return <MLSData {...rest} query={countQuery}/>
+  }
+}
+
 class MLSMedia extends Component {
   render() {
-    const { collection = 'Media', token, resource = 'public', limit, ListingKeyNumeric, MediaType='Photo', ...rest } = this.props;
-    const authHeader = { headers: { Authorization: `Bearer ${token}`}};
+    const { resource = "public", collection = "Media", query, ListingKeyNumeric, MediaType = 'Photo', ...rest } = this.props;
     const mediaQuery = {
           filter: { 
           and: [
@@ -17,26 +28,26 @@ class MLSMedia extends Component {
           },
           top: 1
         };
-      return <OData baseUrl={`${base}/${resource}/${collection}`} options={authHeader} query={mediaQuery} {...rest} />
+      return <MLSData resource={resource} collection={collection} {...rest} query={mediaQuery} processed={true} />
   }
 }
 
 class MLSData extends Component {
   render() {
-    const { collection, token, link, resource = 'www', limit, ...rest } = this.props;
+    const { collection, token, link, resource = 'www', limit, processed = false, ...rest } = this.props;
     const authHeader = { headers: { Authorization: `Bearer ${token}`}};
 
     if (link) {
       return <OData baseUrl={link} options={authHeader} {...rest} />
     }
 
-    if (collection.toLowerCase() === 'media' ) {
-      return <MLSMedia {...rest} />
+    if (collection.toLowerCase() === 'media' && !processed ) {
+      return <MLSMedia collection={collection} resource={resource} token={token} {...rest} />
     }
 
     return <OData baseUrl={`${base}/${resource}/${collection}`} options={authHeader} {...rest} />
   }
 }
 
-export { MLSMedia };
+export { MLSMedia, MLSCount };
 export default MLSData;
