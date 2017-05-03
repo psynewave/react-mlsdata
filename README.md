@@ -15,10 +15,14 @@ npm install --save react-mlsdata
 
 ## Media
 If you are accessing an item in the media resource there is some options you can pass to optimize your request
-* ListingKeyNumeric = the integer value of the media resource you are looking for note this has to be passed as a number example ListingKeyNumeric = {this.ListingKey} || ListingKeyNumeric = {1234456}
+* ListingKeyNumeric - the integer value of the media resource for the listing you want to display it must be a number 
+  example ListingKeyNumeric = {this.ListingKey} || ListingKeyNumeric = {1234456}
+* MemberKeyNumeric - the integer value of the media resource for the agent you want to display it must be a number
 * MediaType = defaults to Photo. You can pass thumbnail if you want a smaller image for display in a list
 
-## Media Example
+## Media Examples
+
+### Property Thumbnail
 ```js
 <MLSMedia MediaType="Thumbnail" ListingKeyNumeric={265403} limit="1" token={authtoken}>
   {({ loading, error, data }) => (
@@ -43,6 +47,33 @@ If you are accessing an item in the media resource there is some options you can
   )}
 </MLSMedia>
 ```
+
+### Agent Photo
+```js
+<MLSMedia MediaType="Thumbnail" MemberKeyNumeric={150591} limit="1" token={authtoken}>
+  {({ loading, error, data }) => (
+    <div>
+      {error && 
+        <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+      }
+      {data &&
+        <div>
+          <Values data={data} />
+
+          { !data.value.length &&
+            <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+          }
+
+          { data.value.length !== 0 &&
+            <img src={data.value[0].MediaURL} alt="Thumbnail"/>
+          }
+        </div>
+      }
+    </div>
+  )}
+</MLSMedia>
+```
+
 
 ## MLSCount
 A simplified interface for retrieving the count for any query. Simply pass the same query and filters to MLSCount component. 

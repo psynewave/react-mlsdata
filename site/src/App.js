@@ -40,6 +40,35 @@ class Thumbnail extends Component {
   }
 }
 
+class AgentPhoto extends Component {
+  render() {
+    return (
+      <MLSMedia MediaType="Thumbnail" MemberKeyNumeric={150591} limit="1" token={authtoken}>
+        {({ loading, error, data }) => (
+          <div>
+            {error && 
+              <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+            }
+            {data &&
+              <div>
+                <Values data={data} />
+
+                { !data.value.length &&
+                  <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+                }
+
+                { data.value.length !== 0 &&
+                  <img src={data.value[0].MediaURL} alt="Thumbnail"/>
+                }
+              </div>
+            }
+          </div>
+        )}
+      </MLSMedia>
+    )
+  }
+}
+
 class Pagination extends Component {
   render() {
     console.log(this.props.data["@odata.count"]);
@@ -99,6 +128,7 @@ const App = () => (
                   )}
                 </MLSCount>
 
+              <AgentPhoto />
               <Thumbnail />
               <Listings listings={data.value} />
 

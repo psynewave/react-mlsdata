@@ -17,11 +17,12 @@ class MLSCount extends Component {
 
 class MLSMedia extends Component {
   render() {
-    const { resource = "public", collection = "Media", query, ListingKeyNumeric, MediaType = 'Photo', ...rest } = this.props;
+    const { resource = "public", collection = "Media", query, ListingKeyNumeric = false , MemberKeyNumeric = false, MediaType = 'Photo', ...rest } = this.props;
+    const ResourceRecordKeyNumeric = ListingKeyNumeric ? ListingKeyNumeric : MemberKeyNumeric;
     const mediaQuery = {
           filter: { 
           and: [
-                { ResourceRecordKeyNumeric: ListingKeyNumeric },
+                { ResourceRecordKeyNumeric },
                 "MediaStatus eq ResourceEnums.MediaStatus'Valid'",
                 `MediaCategory eq ResourceEnums.MediaCategory'${MediaType}'`
               ]
