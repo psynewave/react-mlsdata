@@ -49,7 +49,7 @@ A simplified interface for retrieving the count for any query. Simply pass the s
 It will in a declarative form return a count for the query which can the be used to display number of results or to build 
 a pagination element 
 
-# MLSCount Example
+## MLSCount Example
 
 ```js
 
