@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import MLSData from "../../src";
 import { authtoken } from "./_config.js";
 
-class Values extends React.Component {
+class Values extends Component {
   render() {
     console.log(this.props.data);
 
@@ -10,7 +10,27 @@ class Values extends React.Component {
   }
 }
 
-class Listings extends React.Component {
+class Thumbnail extends Component {
+  render() {
+    return (
+      <MLSData resource="public" collection="Media" MediaType="Thumbnail" ListingKeyNumeric={2654039} limit="1" token={authtoken}>
+        {({ loading, error, data }) => (
+          <div>
+            {data &&
+              <div>
+                <Values data={data} />
+                <img src={data.value[0].MediaURL} alt="Thumbnail"/>
+              </div>
+            }
+          </div>
+        )}
+      </MLSData>
+    )
+
+  }
+}
+
+class Listings extends Component {
   render() {
     const { listings } = this.props;
 
@@ -24,7 +44,7 @@ class Listings extends React.Component {
   }
 }
 
-class Count extends React.Component {
+class Count extends Component {
   render() {
     return (
       <h3>
@@ -51,7 +71,7 @@ const App = () => (
 
               <Values data={data} />
               <Count data={data.value}/>
-
+              <Thumbnail />
               <Listings listings={data.value} />
 
             </div>

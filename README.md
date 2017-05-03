@@ -13,6 +13,11 @@ npm install --save react-mlsdata
 * token - the authorization token from the mlslistings identity provider
 * link - an odata link returned within the collection request
 
+## Media
+If you are accessing an item in the media resource there is some options you can pass to optimize your request
+* ListingKeyNumeric = the integer value of the media resource you are looking for note this has to be passed as a number example ListingKeyNumeric = {this.ListingKey} || ListingKeyNumeric = {1234456}
+* MediaType = defaults to Photo. You can pass thumbnail if you want a smaller image for display in a list
+
 ## Usage
 ### Import
 ```js
