@@ -18,6 +18,32 @@ If you are accessing an item in the media resource there is some options you can
 * ListingKeyNumeric = the integer value of the media resource you are looking for note this has to be passed as a number example ListingKeyNumeric = {this.ListingKey} || ListingKeyNumeric = {1234456}
 * MediaType = defaults to Photo. You can pass thumbnail if you want a smaller image for display in a list
 
+## Media Example
+```js
+<MLSMedia MediaType="Thumbnail" ListingKeyNumeric={265403} limit="1" token={authtoken}>
+  {({ loading, error, data }) => (
+    <div>
+      {error && 
+        <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+      }
+      {data &&
+        <div>
+          <Values data={data} />
+
+          { !data.value.length &&
+            <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=Image%20Not%20Found&w=150&h=150" alt="Missing Image" />
+          }
+
+          { data.value &&
+            <img src={data.value[0].MediaURL} alt="Thumbnail"/>
+          }
+        </div>
+      }
+    </div>
+  )}
+</MLSMedia>
+```
+
 ## Usage
 ### Import
 ```js

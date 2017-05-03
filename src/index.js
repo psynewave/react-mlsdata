@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import OData from 'react-odata';
 
-class MLSData extends Component {
+const base = 'http://api1.mlslistings.com/resodata';
+
+class MLSMedia extends Component {
   render() {
-    const base = 'http://api1.mlslistings.com/resodata';
-    const { collection, token, link, resource = 'vow', limit, ListingKeyNumeric, MediaType='Photo', ...rest } = this.props;
+    const { collection = 'Media', token, resource = 'public', limit, ListingKeyNumeric, MediaType='Photo', ...rest } = this.props;
     const authHeader = { headers: { Authorization: `Bearer ${token}`}};
-
-    if (link) {
-      return <OData baseUrl={link} options={authHeader} {...rest} />
-    }
-
-    if (collection.toLowerCase() === 'media' ) {
-        console.log(ListingKeyNumeric);
-        const query = {
+    const mediaQuery = {
           filter: { 
           and: [
                 { ResourceRecordKeyNumeric: ListingKeyNumeric },
@@ -23,12 +17,26 @@ class MLSData extends Component {
           },
           top: 1
         };
-        console.log(ListingKeyNumeric, query);
-      return <OData baseUrl={`${base}/${resource}/${collection}`} options={authHeader} query={query} {...rest} />
+      return <OData baseUrl={`${base}/${resource}/${collection}`} options={authHeader} query={mediaQuery} {...rest} />
+  }
+}
+
+class MLSData extends Component {
+  render() {
+    const { collection, token, link, resource = 'vow', limit, ...rest } = this.props;
+    const authHeader = { headers: { Authorization: `Bearer ${token}`}};
+
+    if (link) {
+      return <OData baseUrl={link} options={authHeader} {...rest} />
+    }
+
+    if (collection.toLowerCase() === 'media' ) {
+      return <MLSMedia {...rest} />
     }
 
     return <OData baseUrl={`${base}/${resource}/${collection}`} options={authHeader} {...rest} />
   }
 }
 
+export { MLSMedia };
 export default MLSData;
