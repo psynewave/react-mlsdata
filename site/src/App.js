@@ -1,12 +1,32 @@
 import React, { Component } from "react";
-import MLSData, { MLSMedia, MLSCount } from "../../src";
+import MLSData, { MLSMedia, MLSCount,MLSGeography,MLSStats } from "../../src";
 import { authtoken } from "./_config.js";
+
 
 class Values extends Component {
   render() {
     console.log(this.props.data);
 
     return <div />;
+  }
+}
+
+class Geo extends Component {
+  render() {
+    return (
+     <div>       
+        <MLSGeography    >
+          {({ loading, error, data }) => (
+            <div>
+              {loading && <h2>{`${loading}`}</h2>}
+              {error && <h2>{`${error}`}</h2>}
+              {data && <h1>{data.value[0].CountyName}</h1>}
+            </div>
+          )}
+        </MLSGeography>
+      </div>
+    )
+
   }
 }
 
@@ -134,7 +154,7 @@ const App = () => (
 
             </div>
           }
-
+<Geo/>
         </div>
       )}
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import OData from 'react-odata';
+import buildQuery from 'odata-query';
 
 const base = 'http://api1.mlslistings.com/resodata';
+const statsbase = 'http://localhost/RETSAPI';
 
 class MLSCount extends Component {
   render () {
@@ -50,5 +52,29 @@ class MLSData extends Component {
   }
 }
 
-export { MLSMedia, MLSCount };
+//Adding classes to accommodate stats and geographies
+class MLSGeography extends Component {
+  render() {
+    const { resource = "BiEntity", collection = "vGeographyByGeographyTypes", filter="",select="", ...rest } = this.props; 
+     var query='';
+     query =buildQuery({ select, filter});
+      const authHeader = { headers: {Authorization: '', 'Accept': 'application/json'}}; 
+      return <OData baseUrl={`${statsbase}/${resource}/${collection}${query}`} options={authHeader} {...rest} /> 
+  }
+}
+
+class MLSStats extends Component {
+  render() {
+    const { resource = "Growth", collection, filter,select, ...rest } = this.props; 
+    collection.toLowerCase() === 'markettrends'?'markettrends': collection.toLowerCase() === 'KPI'?'markettrendslast90':(collection.toLowerCase() === 'member' ||collection.toLowerCase() === 'office')?'agentproduction':''
+     var query='';
+     query =buildQuery({ select, filter});
+      const authHeader = { headers: {Authorization: '', 'Accept': 'application/json'}}; 
+      return <OData baseUrl={`${statsbase}/${resource}/${collection}${query}`} options={authHeader} {...rest} /> 
+  }
+}
+
+//end
+
+export { MLSMedia, MLSCount,MLSGeography,MLSStats};
 export default MLSData;
