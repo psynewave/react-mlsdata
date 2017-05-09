@@ -1,6 +1,6 @@
 /node_modules/
 /lib/
-/dist/
 /coverage/
 npm-debug.log
 _config.js
+/dist/
