@@ -19,8 +19,8 @@ var config = {
     ]
   },
   output: {
-    filename: 'dist/ReactComponentBoilerplate.min.js',
-    library: 'ReactComponentBoilerplate',
+    filename: 'dist/ReactMLSData.min.js',
+    library: 'ReactMLSData',
     libraryTarget: 'umd',
   },
   plugins: [

@@ -3,3 +3,4 @@
 /coverage/
 npm-debug.log
 _config.js
+/dist/
