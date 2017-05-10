@@ -36,7 +36,7 @@ class Stats extends Component {
    const select =   ['Class','ActiveCount','ContingentCount','PendingCount'];
     return (
      <div>       
-        <MLSStats collection='MarketTrends' filter={filter} select={select}    >
+        <MLSStats collection='year-to-year' filter={filter} select={select}    >
           {({ loading, error, data }) => (
             <div>
               {loading && <h2>{`${loading}`}</h2>}

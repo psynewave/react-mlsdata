@@ -46,11 +46,11 @@ class MLSGeography extends Component {
 class MLSStats extends Component {
   render() {
     const { resource = "Growth", collection, filter,select, ...rest } = this.props; 
-    collection.toLowerCase() === 'markettrends'?'markettrends': 
-    collection.toLowerCase() === 'KPI'?'markettrendslast90':
-    (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'agentproduction':'';    
+ var actualcollection=   (collection.toLowerCase() === 'markettrends' || collection.toLowerCase() === 'year-to-year')?'MarketTrends': 
+    collection.toLowerCase() === 'KPI'?'MarketTrendsLast90':   
+    (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'AgentProduction':'';    
     const authHeader = { headers: {Authorization: '', 'Accept': 'application/json'}}; 
-    return <MLSData base={statsbase} resource={resource} collection={collection} query={{ select, filter}} options={authHeader} {...rest} /> 
+    return <MLSData base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter}} options={authHeader} {...rest} /> 
   }
 }
 
