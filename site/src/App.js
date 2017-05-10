@@ -30,6 +30,27 @@ class Geo extends Component {
   }
 }
 
+class Stats extends Component {
+  render() {
+   const filter ={and: [{Period: '2015'}, { GeographyName:'Sunnyvale'},{PeriodType : 'Year'}, {GeographyType:'City'}]} ;
+   const select =   ['Class','ActiveCount','ContingentCount','PendingCount'];
+    return (
+     <div>       
+        <MLSStats collection='MarketTrends' filter={filter} select={select}    >
+          {({ loading, error, data }) => (
+            <div>
+              {loading && <h2>{`${loading}`}</h2>}
+              {error && <h2>{`${error}`}</h2>}
+              {data && <h1>{data.value[0].Class}</h1>}
+            </div>
+          )}
+        </MLSStats>
+      </div>
+    )
+
+  }
+}
+
 class Thumbnail extends Component {
   render() {
     return (
@@ -155,6 +176,7 @@ const App = () => (
             </div>
           }
 <Geo/>
+<Stats/>
         </div>
       )}
 
