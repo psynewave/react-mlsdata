@@ -20,6 +20,17 @@ If you are accessing an item in the media resource there is some options you can
 * MemberKeyNumeric - the integer value of the media resource for the agent you want to display it must be a number
 * MediaType = defaults to Photo. You can pass thumbnail if you want a smaller image for display in a list
 
+## Geography
+To access geography information 
+
+## Stats
+If you are accessing statistics for a particular widget (Market Trends, Key PerformanceIndicators, Year to Year), you can pass the following options to optimize your request
+* collection - member, office, markettrends, KPI, year-to-year
+* select - Data to be selected for stats
+* filter - criteria for selection
+
+
+
 ## Media Examples
 
 ### Property Thumbnail
