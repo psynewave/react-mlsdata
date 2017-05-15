@@ -1,6 +1,6 @@
 # React MLSData Component
 
-A react component to simplify the use of MLS Data from the MLSListings Odata Server within an Application.
+A react component to simplify the use of MLS Data from the MLSListings Odata Service within an Application.
 
 ## Install 
 ```
