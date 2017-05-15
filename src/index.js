@@ -39,8 +39,7 @@ class MLSMedia extends Component {
 class MLSGeography extends Component {
   render() {
     const { resource = "BiEntity", collection = "vGeographyByGeographyTypes", filter="",select="", ...rest } = this.props; 
-    const authHeader = { headers: {Authorization: '', 'Accept': 'application/json'}}; 
-    return <MLSData base={statsbase} resource={resource} collection={collection} query={{ select, filter}} options={authHeader} {...rest} /> 
+    return <MLSData base={statsbase} resource={resource} collection={collection} query={{ select, filter}} {...rest} /> 
   }
 }
 
@@ -50,8 +49,7 @@ class MLSStats extends Component {
     var actualcollection=   (collection.toLowerCase() === 'markettrends' || collection.toLowerCase() === 'year-to-year')?'MarketTrends': 
     collection.toLowerCase() === 'KPI'?'MarketTrendsLast90':   
     (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'AgentProduction':'';    
-    const authHeader = { headers: {Authorization: '', 'Accept': 'application/json'}}; 
-    return <MLSData {...this.props} base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter}} options={authHeader}/> 
+    return <MLSData {...this.props} base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter}}/> 
   }
 }
 
@@ -59,15 +57,17 @@ class MLSStats extends Component {
 
 class MLSData extends Component {
   render() {
-    const { base = dbase, collection, token, link, resource = 'www', limit, processed = false } = this.props;
-    const authHeader = { headers: { Authorization: `Bearer ${token}`}};
+    const { token } = this.props;
+    const auth = { headers: { ...typeof token !== "undefined" && { Authorization : `Bearer ${token}` }, 'Accept': 'application/json'}};
+    const { base = dbase, collection, authHeader = auth, link, resource = 'www', limit, processed = false } = this.props;
+    
 
     if (link) {
       return <OData {...this.props} baseUrl={link} options={authHeader} />
     }
 
     if (collection.toLowerCase() === 'media' && !processed ) {
-      return <MLSMedia {...this.props} collection={collection} resource={resource} token={token} />
+      return <MLSMedia {...this.props} collection={collection} resource={resource} options={authHeader} />
     }
 
     return <OData {...this.props} baseUrl={`${base}/${resource}/${collection}`} options={authHeader} />
