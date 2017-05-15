@@ -112,7 +112,7 @@ class AgentPhoto extends Component {
 
 class Pagination extends Component {
   render() {
-    console.log(this.props.data["@odata.count"]);
+    console.info("pagination:", this.props.data["@odata.count"]);
     return <div />;
   }
 }
