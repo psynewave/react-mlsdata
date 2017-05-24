@@ -190,4 +190,30 @@ const App = () => (
 export default App;
 
 ``` 
+
+### Fetch Callback
+
+You can pass functions to the onChange prop to run as the fetch is being run. Loading states, Data, Response and etc will be available to a handler function.
+
+```
+class App extends Component {
+  constructor() {
+    super()
+    this.handleResponse = this.handleResponse.bind(this)
+  }
+
+  handleResponse(response){
+    console.info("info response:", response);
+  }
+
+  render() {
+    return (
+      <div>
+        <MLSData collection="Property" token={authtoken} onChange={this.handleResponse} />
+      </div>
+    );
+  }
+}
+```
+
 - See [react-odata](https://github.com/techniq/react-odata) for additional options
