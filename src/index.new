@@ -1,0 +1,21 @@
+import React, { Component } from 'react';
+import OData, { buildQuery } from 'react-odata';
+
+const dbase = 'http://api1.mlslistings.com/resodata';
+const statsbase = 'http://localhost/RETSAPI';
+
+const overrideProps = (overrideProps) => (props) => {
+    console.log(props, overrideProps);
+    return <MLSData {...props} {...overrideProps} />;
+}
+  
+
+const MLSCount = overrideProps({ query: { top: 0, count: true } })
+
+const MLSData = ( props ) => {
+    const { base = dbase, token, collection, authHeader = { headers: { ...typeof props.token !== "undefined" && { Authorization: `Bearer ${props.token}` }, 'Accept': 'application/json' } }, link, resource = 'www', limit, processed = false, ...rest } = props;
+    return <OData {...rest} baseUrl={`${base}/${resource}/${collection}`} options={authHeader} />;
+} 
+
+export { MLSCount };
+export default MLSData;
