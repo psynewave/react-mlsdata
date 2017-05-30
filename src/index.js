@@ -47,7 +47,7 @@ class MLSStats extends Component {
   render() {
     const { resource = "Growth", collection, filter, select } = this.props; 
     var actualcollection=   (collection.toLowerCase() === 'markettrends' || collection.toLowerCase() === 'year-to-year')?'MarketTrends': 
-    collection.toLowerCase() === 'KPI'?'MarketTrendsLast90':   
+    collection.toLowerCase() === 'kpi' ? 'markettrendslast90':   
     (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'AgentProduction':'';    
     return <MLSData {...this.props} base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter}}/> 
   }
@@ -57,10 +57,7 @@ class MLSStats extends Component {
 
 class MLSData extends Component {
   render() {
-    const { token } = this.props;
-    const auth = { headers: { ...typeof token !== "undefined" && { Authorization : `Bearer ${token}` }, 'Accept': 'application/json'}};
-    const { base = dbase, collection, authHeader = auth, link, resource = 'www', limit, processed = false } = this.props;
-    
+    const { base = dbase, token, collection, authHeader = { headers: { ...typeof this.props.token !== "undefined" && { Authorization: `Bearer ${this.props.token}` }, 'Accept': 'application/json' } }, link, resource = 'www', limit, processed = false } = this.props;
 
     if (link) {
       return <OData {...this.props} baseUrl={link} options={authHeader} />

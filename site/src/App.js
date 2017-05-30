@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import MLSData, { MLSMedia, MLSCount,MLSGeography,MLSStats } from "../../src";
+// import MLSData, { MLSMedia, MLSCount,MLSGeography,MLSStats } from "../../src";
+import MLSData, { MLSCount } from "../../src";
 import { authtoken } from "./_config.js";
 
 
@@ -11,7 +12,7 @@ class Values extends Component {
   }
 }
 
-class Geo extends Component {
+/*class Geo extends Component {
   render() {
     return (
      <div>       
@@ -28,9 +29,9 @@ class Geo extends Component {
     )
 
   }
-}
+}*/
 
-class Stats extends Component {
+/*class Stats extends Component {
   render() {
    const filter ={and: [{Period: '2015'}, { GeographyName:'Sunnyvale'},{PeriodType : 'Year'}, {GeographyType:'City'}]} ;
    const select =   ['Class','ActiveCount','ContingentCount','PendingCount'];
@@ -115,7 +116,7 @@ class Pagination extends Component {
     console.info("pagination:", this.props.data["@odata.count"]);
     return <div />;
   }
-}
+}*/
 
 class Listings extends Component {
   render() {
@@ -143,45 +144,58 @@ class Count extends Component {
   }
 }
 
-const App = () => (
-  <div>
-    <MLSData collection="Property" token={authtoken}>
-      {({ loading, error, data }) => (
-        <div>
+class App extends Component {
+  constructor() {
+    super()
+    this.handleResponse = this.handleResponse.bind(this)
+  }
 
-          {loading && <h2>{`${loading}`}</h2>}
+  handleResponse(data){
+    console.info("info response:", data);
+  }
 
-          {error && <h2>{error.message}</h2>}
-
-          {data &&
+  render() {
+    return (
+      <div>
+        <MLSData collection="Property" token={authtoken}>
+          {({ loading, error, data }) => (
             <div>
 
-              <Values data={data} />
-              <Count data={data.value}/>
-              
-                <MLSCount collection="Property" token={authtoken}>
-                  {({ data }) => (
-                    <div>
-                      { data &&
-                      <Pagination data={data} />
-                    }
-                    </div>
-                  )}
-                </MLSCount>
+              {loading && <h2>{`${loading}`}</h2>}
 
+              {error && <h2>{error.message}</h2>}
+
+              {data &&
+                <div>
+
+
+                  <Count data={data.value} />
+
+                  <MLSCount collection="Property" token={authtoken} onChange={this.handleResponse}>
+                    {({ data }) => (
+                      <div>
+                        {data &&
+                          <Values data={data} />
+                        }
+                      </div>
+                    )}
+                  </MLSCount>
+                  {/*<
               <AgentPhoto />
-              <Thumbnail />
-              <Listings listings={data.value} />
+              <Thumbnail />*/}
+                  <Listings listings={data.value} />
 
+                </div>
+              }
+              {/*<Geo/>
+<Stats/>*/}
             </div>
-          }
-<Geo/>
-<Stats/>
-        </div>
-      )}
+          )}
 
-    </MLSData>
-  </div>
-);
+        </MLSData>
+      </div>
+    );
+  }
+}
 
 export default App;
