@@ -47,7 +47,7 @@ class MLSStats extends Component {
   render() {
     const { resource = "Growth", collection, filter, select } = this.props; 
     var actualcollection=   (collection.toLowerCase() === 'markettrends' || collection.toLowerCase() === 'year-to-year')?'MarketTrends': 
-    collection.toLowerCase() === 'kpi' ? 'markettrendslast90':   
+    collection.toLowerCase() === 'kpi' ? 'MarketTrendsLast90':   
     (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'AgentProduction':'';    
     return <MLSData {...this.props} base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter}}/> 
   }
