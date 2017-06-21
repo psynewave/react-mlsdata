@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import OData, { buildQuery } from 'react-odata';
 
 const dbase = 'http://api1.mlslistings.com/resodata';
-const statsbase = 'http://localhost/RETSAPI';
+const statsbase = 'http://RETSAPI.qa.mlslistings.com';
 
 
 class MLSCount extends Component {
