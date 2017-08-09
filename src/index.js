@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import OData, { buildQuery } from 'react-odata';
 
 const dbase = 'http://api1.mlslistings.com/resodata';
-const statsbase = 'http://RETSAPI.qa.mlslistings.com';
+//enable for QA environment
+//const statsbase = 'http://RETSAPI.qa.mlslistings.com';
+const statsbase = 'http://api1.mlslistings.com/retsapi';
 
 
 class MLSCount extends Component {
@@ -48,7 +50,7 @@ class MLSStats extends Component {
     const { resource = "Growth", collection, filter, select } = this.props; 
     var actualcollection=   (collection.toLowerCase() === 'markettrends' || collection.toLowerCase() === 'year-to-year')?'MarketTrends': 
     collection.toLowerCase() === 'kpi' ? 'MarketTrendsLast90':   
-    (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'AgentProduction':'';    
+    (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'AgentProduction':collection;    
     return <MLSData {...this.props} base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter}}/> 
   }
 }
