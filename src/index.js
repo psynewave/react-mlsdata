@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import OData, { buildQuery } from 'react-odata';
+import 'whatwg-fetch';
 
 const dbase = 'http://api1.mlslistings.com/resodata';
 //enable for QA environment
@@ -37,7 +38,7 @@ class MLSMedia extends Component {
   }
 }
 
-//Adding classes to accommodate stats and geographies
+//Adding classes to accommodate stats,geographies, and UserPreferences
 class MLSGeography extends Component {
   render() {
     const { resource = "BiEntity", collection = "vGeographyByGeographyTypes", filter="",select="", ...rest } = this.props; 
@@ -55,6 +56,12 @@ class MLSStats extends Component {
   }
 }
 
+class MLSUserPreference extends Component {
+  render() {
+    const { resource = "BiEntity", collection = "vWidgetAssets", filter="",select="", ...rest } = this.props; 
+    return <MLSData base={statsbase} resource={resource} collection={collection} query={{ select, filter}} {...rest} /> 
+  }
+}
 //end
 
 class MLSData extends Component {
@@ -73,5 +80,5 @@ class MLSData extends Component {
   }
 }
 
-export { MLSMedia, MLSCount,MLSGeography,MLSStats};
+export { MLSMedia, MLSCount,MLSGeography,MLSStats,MLSUserPreference};
 export default MLSData;
