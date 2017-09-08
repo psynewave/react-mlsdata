@@ -48,11 +48,11 @@ class MLSGeography extends Component {
 
 class MLSStats extends Component {
   render() {
-    const { resource = "Growth", collection, filter, select } = this.props; 
+    const { resource = "Growth", collection, filter, select,orderBy } = this.props; 
     var actualcollection=   (collection.toLowerCase() === 'markettrends' || collection.toLowerCase() === 'year-to-year')?'MarketTrends': 
     collection.toLowerCase() === 'kpi' ? 'MarketTrendsLast90':   
     (collection.toLowerCase() === 'member' || collection.toLowerCase() === 'office') ? 'AgentProduction':collection;    
-    return <MLSData {...this.props} base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter}}/> 
+    return <MLSData {...this.props} base={statsbase} resource={resource} collection={actualcollection} query={{ select, filter,orderBy}}/> 
   }
 }
 
